@@ -9,10 +9,10 @@ func BookRouter(r *gin.Engine) {
 
 	bookGroup := r.Group("/book")
 	{
-		bookGroup.POST("/add", service.Add)
-		bookGroup.GET("/getDetail", service.Add)
-		bookGroup.POST("/page", service.Add)
-		bookGroup.GET("/delete", service.Add)
+		bookGroup.POST("/add", service.BookAdd)
+		bookGroup.GET("/getDetail", service.BookAdd)
+		bookGroup.POST("/page", service.BookAdd)
+		bookGroup.GET("/delete", service.BookAdd)
 	}
 
 }
