@@ -7,7 +7,7 @@ import (
 )
 
 func Hello(c *gin.Context) {
-	data := entity.Book{BookNo: "G10001", BookName: "Effective Golang", Price: 8750}
+	data := entity.Book{BookCode: "G10001", BookName: "Effective Golang", Price: 8750}
 	c.JSON(http.StatusOK, data)
 }
 

@@ -26,7 +26,7 @@ func PingRouter(r *gin.Engine) {
 	*/
 	r.POST("/json", ping.Json)
 
-	r.Any("/any", ping.Ping)
+	//r.Any("/any", ping.Ping)
 
 	/**
 	访问无效路径
