@@ -15,7 +15,7 @@ func BookAdd(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{
 		"code": "0",
-		"data": book.Id,
+		"data": book.ID,
 	})
 }
 
@@ -30,9 +30,9 @@ func BookGetById(c *gin.Context) {
 
 func BookLogicDelete(c *gin.Context) {
 	id := c.Query("id")
-	dao.BookUpdateById(id)
+	book := dao.BookUpdateById(id)
 	c.JSON(http.StatusOK, gin.H{
 		"code": "0",
-		"data": id,
+		"data": book.ID,
 	})
 }

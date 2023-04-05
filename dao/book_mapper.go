@@ -5,6 +5,7 @@ import (
 	"github.com/morningcat2018/book-service/entity"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"time"
 )
 
 var db *gorm.DB
@@ -24,7 +25,7 @@ func init() {
 }
 
 func BookInsert(book *entity.Book) {
-	book.LogicStatus = 1
+	//book.LogicStatus = 1
 	db.Save(book)
 }
 
@@ -36,7 +37,10 @@ func BookGetById(id string) entity.Book {
 	if book.IsEmpty() {
 		return book
 	}
-	if book.LogicStatus == 0 {
+	//if book.LogicStatus == 0 {
+	//	return entity.Book{}
+	//}
+	if book.DeletedAt.Valid {
 		return entity.Book{}
 	}
 	return book
@@ -51,7 +55,10 @@ func BookUpdateById(id string) entity.Book {
 	}
 
 	// Update - 将 book 的 LogicStatus 更新为 0
-	db.Model(&book).Update("LogicStatus", 0)
+	//db.Model(&book).Update("LogicStatus", 0)
+	book.DeletedAt.Valid = true
+	book.DeletedAt.Time = time.Now()
+	db.Updates(book)
 
 	return book
 }
