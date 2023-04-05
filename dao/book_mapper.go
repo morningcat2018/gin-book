@@ -24,5 +24,34 @@ func init() {
 }
 
 func BookInsert(book *entity.Book) {
+	book.LogicStatus = 1
 	db.Save(book)
+}
+
+func BookGetById(id string) entity.Book {
+	// Read
+	var book entity.Book
+	db.First(&book, id) // 根据整型主键查找
+	//db.First(&book, "code = ?", "D42") // 查找 code 字段值为 D42 的记录
+	if book.IsEmpty() {
+		return book
+	}
+	if book.LogicStatus == 0 {
+		return entity.Book{}
+	}
+	return book
+}
+
+func BookUpdateById(id string) entity.Book {
+	// Read
+	var book entity.Book
+	db.First(&book, id) // 根据整型主键查找
+	if book.IsEmpty() {
+		return book
+	}
+
+	// Update - 将 book 的 LogicStatus 更新为 0
+	db.Model(&book).Update("LogicStatus", 0)
+
+	return book
 }

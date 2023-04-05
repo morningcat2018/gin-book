@@ -1,6 +1,9 @@
 package entity
 
-import "time"
+import (
+	"reflect"
+	"time"
+)
 
 type Book struct {
 	Id          int64      `gorm:"AUTO_INCREMENT" json:"id"`
@@ -9,4 +12,9 @@ type Book struct {
 	Author      string     `gorm:"type:varchar(25)" json:"author"`
 	PublishDate *time.Time `json:"publishDate"`
 	Price       int        `gorm:"size:3" json:"price"`
+	LogicStatus int        `gorm:"size:3" json:"logicStatus"`
+}
+
+func (s Book) IsEmpty() bool {
+	return reflect.DeepEqual(s, Book{})
 }

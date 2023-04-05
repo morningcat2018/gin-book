@@ -18,3 +18,21 @@ func BookAdd(c *gin.Context) {
 		"data": book.Id,
 	})
 }
+
+func BookGetById(c *gin.Context) {
+	id := c.Query("id")
+	book := dao.BookGetById(id)
+	c.JSON(http.StatusOK, gin.H{
+		"code": "0",
+		"data": book,
+	})
+}
+
+func BookLogicDelete(c *gin.Context) {
+	id := c.Query("id")
+	dao.BookUpdateById(id)
+	c.JSON(http.StatusOK, gin.H{
+		"code": "0",
+		"data": id,
+	})
+}
